@@ -4,7 +4,7 @@ function App() {
   return (
     <div className="App">
        <h1>
-        hello from api vercel 
+        hello from vercel 
        </h1>
     </div>
   );
