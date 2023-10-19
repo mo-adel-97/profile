@@ -1,19 +1,20 @@
 import './App.css';
-import { useEffect,useState } from 'react';
-
+import { useState } from 'react';
+import axios from 'axios';
 function App() {
   const [data,setData] = useState('')
 
-  useEffect(() => {
-    fetch("https://api-profile-git-main-mohameds-projects-38a34405.vercel.app/data")
-    .then(response => response.json())
-        // 4. Setting *dogImage* to the image url that we received from the response above
-    .then(data => setData(data.message))
-  },[])
+  axios.get('http://localhost:4000/data') // Replace with your actual API endpoint
+  .then(response => {
+    setData(response.data)
+  })
+  .catch(error => {
+    console.error(error);
+  });
   return (
     <div className="App">
        <h1>
-        hello ${data} from vercel 
+        hello {data.name} from vercel 
        </h1>
     </div>
   );
