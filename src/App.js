@@ -4,7 +4,7 @@ import axios from 'axios';
 function App() {
   const [data,setData] = useState('')
 
-  axios.get('http://localhost:4000/data') // Replace with your actual API endpoint
+  axios.get('https://api-profile-git-main-mohameds-projects-38a34405.vercel.app/data') // Replace with your actual API endpoint
   .then(response => {
     setData(response.data)
   })
