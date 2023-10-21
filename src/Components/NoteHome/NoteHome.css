@@ -1,0 +1,47 @@
+.noteRote {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    /* background-color:#f0ffff; */
+    opacity:0.9
+  }
+  .para{
+   padding-right: 15px;
+  }
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: purple;
+  }
+  .description {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #666;
+  }
+  .imagenote{
+    width: 600px;
+    height: 500px;
+    align-items: center;
+  }
+  @media screen and (max-width: 500px) {
+    .noteRote {
+      margin-top: 15px;
+      display: flex;
+      height: 90vh;
+      opacity:0.9;
+      flex-direction: column;
+      justify-content:start;
+      align-items: start;
+    } .imagenote{
+      width: 85%;
+      height: 400px;
+    }.homepage{
+      order: 2;
+    }.para{
+      order: 1;
+    }  .description {
+        font-size: 15px;
+    }
+  }

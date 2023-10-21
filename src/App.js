@@ -1,21 +1,10 @@
 import './App.css';
-import { useState } from 'react';
-import axios from 'axios';
-function App() {
-  const [data,setData] = useState('')
+import Home from './Pages/Home/Home';
 
-  axios.get('http://localhost:4000/data') // Replace with your actual API endpoint
-  .then(response => {
-    setData(response.data)
-  })
-  .catch(error => {
-    console.error(error);
-  });
+function App() {
   return (
     <div className="App">
-       <h1>
-        hello {data.name} from vercel 
-       </h1>
+      <Home />
     </div>
   );
 }
