@@ -11,8 +11,6 @@ export function Note() {
         <Button style={{marginTop:"15px",width:"250px",backgroundColor:"purple",letterSpacing:"3px",
         wordSpacing:"5px"
     }} variant="contained">sign up</Button>
-    <br />
-    <br />
       </div>
 
       <div className="para">
