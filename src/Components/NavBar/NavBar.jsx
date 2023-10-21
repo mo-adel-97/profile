@@ -5,8 +5,13 @@ import Toolbar from '@mui/material/Toolbar';
 import "./NavBar.css"
 import Button from '@mui/material/Button';
 import { IconButton } from '@mui/material';
+import {useNavigate} from 'react-router-dom'
 
 export default function ButtonAppBar() {
+  const navigate = useNavigate();
+  const handleClick = ()=>{
+    navigate('/login')
+  }
   return (
     <Box sx={{ flexGrow: 1 }} >
       <AppBar position="static" sx={{backgroundColor:"purple"}} >
@@ -20,7 +25,7 @@ export default function ButtonAppBar() {
           >
             <h3 >Dutify<span className="LOGO">AI</span></h3>
           </IconButton>
-          <Button color="inherit" sx={{border:"1px solid white"}}>Login</Button>
+          <Button onClick={handleClick} color="inherit" sx={{border:"1px solid white"}}>Login</Button>
         </Toolbar>
       </AppBar>
     </Box>

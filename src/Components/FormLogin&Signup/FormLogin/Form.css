@@ -1,0 +1,55 @@
+.LOGOFORM{
+    background: -webkit-linear-gradient(purple, red,purple);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.FORMROOT{
+    height: 90vh;
+    place-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.FormLogin{
+  flex-direction: column;
+}
+.divContent{
+      box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+      width:40%;
+      padding-top: 50px;
+      padding-bottom: 70px;
+      border-radius: 20px;
+}
+.FormLogin form{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+.FormLogin form label{
+    text-align: start;
+    margin-top: 10px;
+}
+.FormLogin form input{
+   height: 35px;
+   margin-top: 3px;
+   border: 2px solid #666;
+   border-radius: 25px;
+}
+.FormLogin form input[type=submit]{
+  color: white;
+  background-color: purple;
+  height: 40px;
+}
+.PForgetPassword{
+    margin-top: 10px;
+}
+.PForgetPassword a{
+    color: #666;
+    font-size: 15px;
+}
+@media screen and (max-width: 850px) {
+    .divContent{
+       width: 90%;
+}
+}
