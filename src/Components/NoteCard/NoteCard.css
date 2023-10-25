@@ -1,0 +1,32 @@
+.card {
+    display: grid;
+    row-gap: 10px;
+    /* place-items: center; */
+    column-gap: 10px;
+    justify-content: space-around;
+  }
+  
+  @media screen and (min-width: 1024px) {
+    .card {
+      grid-template-columns: repeat(3, 1fr);
+    }.cadrall{
+        width:90%;
+    }
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    .card {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 10px;
+    }.cadrall{
+        width:100%
+    }
+  }
+  
+  @media screen and (max-width: 767px) {
+    .card {
+      grid-template-columns: 1fr;
+    }.cadrall{
+        width:90%
+    }
+  }

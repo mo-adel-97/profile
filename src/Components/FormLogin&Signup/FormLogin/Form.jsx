@@ -37,6 +37,11 @@ export default function FormLogin() {
     })
     .catch(function (error) {
       console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Check Your Connecting With Network',
+      })
     });
   
   }

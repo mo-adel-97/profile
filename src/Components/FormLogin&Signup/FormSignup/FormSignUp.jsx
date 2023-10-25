@@ -2,8 +2,9 @@ import { useForm } from "react-hook-form"
 import "./FormSignUp.css"
 import { useState } from "react"
 import FormLogin from "../FormLogin/Form"
-import axios from "axios"
-
+import axios from "axios";
+import {useNavigate} from "react-router-dom"
+import Swal from "sweetalert2";
 export default function FormSignUp(props) {
   const {
     register,
@@ -11,12 +12,29 @@ export default function FormSignUp(props) {
     formState: { errors },
   } = useForm()
 
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log(data)
     axios.post('http://localhost:4000/users', { data })
     .then(function (response) {
       console.log(response);
+      if(response.data === "this is okay"){
+        navigate('/login')
+      }else if(response.data === "password is not match with confirm password"){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Password And ConfirmPassword is not Match!',
+        })
+      }else if(response.data === "this user is already exist"){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'this userName is already exist',
+        })
+      }
+
     })
     .catch(function (error) {
       console.log(error);

@@ -7,7 +7,9 @@ export default function PrivateRoute() {
   const auth = localStorage.getItem('token');
   const navigate = useNavigate();
 
+
   // Function to navigate to the login page
+
   useEffect(() => {
     if (!auth) {
       navigate('/login');
@@ -17,7 +19,6 @@ console.log(auth)
   return (
     <div>
       {auth ? <UserComponent /> : null}
-      {/* Render UserComponent if authenticated, otherwise navigate to login */}
     </div>
   );
 }
