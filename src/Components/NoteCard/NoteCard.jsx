@@ -7,9 +7,12 @@ import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
 import Typography from '@mui/joy/Typography';
 import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
+import { FidgetSpinner } from 'react-loader-spinner';
 import { useState,useEffect } from 'react';
+import Swal from 'sweetalert2';
 import "./NoteCard.css"
 import ShowDailogNote from '../ComponentShowPopUp';
+import axios from 'axios';
 export default function CongratCard(props) {
     const [data,setData] = useState([]);
     // const [content, setContent] = useState('');
@@ -21,19 +24,36 @@ export default function CongratCard(props) {
         }
         return words.slice(0, 3).join(' ') + `...ClickShow`;
       };
-      
+
+      const [loading, setLoading] = useState(true);
+      const [alert, setAlert] = useState(false);
+
           useEffect(() => {
             const fetchData = async () => {
               const response = await fetch(`http://localhost:4000/specificuser/${props.ID}/notes`);
               const newData = await response.json();
               setData(newData);
+              setLoading(false)
             };
           
             fetchData();
           }, [props.ID]);
+
   return (
-    <div className="card">
-  {data.map((note) => (
+    <div>
+      {loading || alert ? <FidgetSpinner
+    visible={true}
+    height="80"
+    width="80"
+    ariaLabel="dna-loading"
+    wrapperStyle={{}}
+    wrapperClass="dna-wrapper"
+    ballColors={['#ff0000', '#00ff00', '#0000ff']}
+    backgroundColor="#F4442E"
+  />  :  
+
+  <div className="card">
+       {data.map((note) => (
      <Card
      key={note.id}
    data-resizable
@@ -68,7 +88,7 @@ export default function CongratCard(props) {
      </AspectRatio>
    </CardOverflow>
    <Typography level="title-lg" sx={{ mt: 'calc(var(--icon-size) / 2)' }}>
-     🎊 {note.title} 🎊
+   📝 {note.title} 📝
    </Typography>
    <CardContent sx={{ maxWidth: '40ch'}} style={{}}>
       {getPreviewText(note.body)}
@@ -83,12 +103,47 @@ export default function CongratCard(props) {
      }}
    >
      <ShowDailogNote title={note.title} body={note.body} />
-     <Button variant="plain" color="neutral">
+     <Button variant="plain" color="neutral" onClick={()=>{
+         Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              setAlert(true)
+                axios
+                .delete(`http://localhost:4000/notes/delete/${note.id}`)
+                .then((res) => {
+                  console.log(res);
+                  console.log(res.data);
+                   setAlert(false)
+                if(res.data === "this note deleted") {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                      )
+                  }
+                  window.location.reload();
+                })
+                .catch((error) => {
+                  console.error("Error deleting note:", error);
+                  setLoading(false);
+                });
+            }
+          })
+     }}>
        Delete
      </Button>
    </CardActions>
  </Card>
       ))}
+    </div>  }
+    
     </div>
   );
 }

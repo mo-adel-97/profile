@@ -5,6 +5,7 @@ import axios from "axios"
 import { useState } from "react"
 import {useNavigate} from "react-router-dom"
 import Swal from "sweetalert2"
+import { FidgetSpinner } from "react-loader-spinner"
 export default function FormLogin() {
   const navigate = useNavigate();
 
@@ -14,8 +15,10 @@ export default function FormLogin() {
     formState: { errors },
   } = useForm()
 
+const [loading,setLoading] = useState(false)
 
   const onSubmit = (data) => {
+    setLoading(true)
     console.log(data)
     axios.post('http://localhost:4000/correcter', { data })
     .then(function (response) {
@@ -26,6 +29,7 @@ export default function FormLogin() {
         const TOKEN = response.data.token.token
         localStorage.setItem("token", TOKEN)
         navigate(`/users/${id}`);
+        setLoading(false)
       }else{
         localStorage.clear("token")
         Swal.fire({
@@ -52,8 +56,18 @@ const [signUp,setSignUp] = useState(false);
     setSignUp(true)
  }
   return (
-    <>
-    {signUp ? <FormSignUp /> : <div className="FORMROOT">
+    <div>
+      {loading ? <FidgetSpinner
+  visible={true}
+  height="80"
+  width="80"
+  ariaLabel="dna-loading"
+  wrapperStyle={{}}
+  wrapperClass="dna-wrapper"
+  ballColors={['#ff0000', '#00ff00', '#0000ff']}
+  backgroundColor="#F4442E"
+/>  : <div>
+{signUp ? <FormSignUp /> : <div className="FORMROOT">
     <div className="divContent">
 <h3 >Dutify<span className="LOGOFORM">AI</span></h3>
      <h2> Welcom back dear </h2>
@@ -78,6 +92,8 @@ const [signUp,setSignUp] = useState(false);
     <p className="PForgetPassword"> <a href="#">Do you forget password?</a></p>
     </div>
     </div> }
-    </>
+</div> }
+    
+    </div>
   )
 }

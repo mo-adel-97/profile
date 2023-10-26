@@ -59,7 +59,7 @@ export default function ShowDailogNote(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button style={{fontSize:"20px",letterSpacing:"2px"}} variant="solid">Delete</Button>
+        <Button onClick={handleClose} style={{fontSize:"20px",letterSpacing:"2px"}} variant="solid">OK</Button>
       </CardActions>
     </Card>
       </Dialog>

@@ -5,6 +5,7 @@ import FormLogin from "../FormLogin/Form"
 import axios from "axios";
 import {useNavigate} from "react-router-dom"
 import Swal from "sweetalert2";
+import { FidgetSpinner } from "react-loader-spinner";
 export default function FormSignUp(props) {
   const {
     register,
@@ -13,13 +14,18 @@ export default function FormSignUp(props) {
   } = useForm()
 
   const navigate = useNavigate();
+const [loading,setLoading] = useState(false);
 
   const onSubmit = (data) => {
+    setLoading(true)
     console.log(data)
     axios.post('http://localhost:4000/users', { data })
     .then(function (response) {
       console.log(response);
+    setLoading(false)
+
       if(response.data === "this is okay"){
+        setLogin(true)
         navigate('/login')
       }else if(response.data === "password is not match with confirm password"){
         Swal.fire({
@@ -49,8 +55,18 @@ export default function FormSignUp(props) {
 }
 
   return (
-    <>
-    {login ? <FormLogin />  : <div className="FORMROOT">
+    <div>
+      {loading ? <FidgetSpinner
+  visible={true}
+  height="80"
+  width="80"
+  ariaLabel="dna-loading"
+  wrapperStyle={{}}
+  wrapperClass="dna-wrapper"
+  ballColors={['#ff0000', '#00ff00', '#0000ff']}
+  backgroundColor="#F4442E"
+/> : <div>
+{login ? <FormLogin />  : <div className="FORMROOT">
     <div className="divContent">
 <h3 >Dutify<span className="LOGOFORM">AI</span></h3>
      <h2> Welcom dear </h2>
@@ -77,6 +93,8 @@ export default function FormSignUp(props) {
     </div>
     </div>
     </div> }
-    </>
+</div> }
+  
+    </div>
   )
 }

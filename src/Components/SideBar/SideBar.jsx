@@ -19,7 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {useParams} from "react-router-dom";
+import {useParams,useNavigate} from "react-router-dom";
 import DailyNote from "../DailyNote/DailyNote";
 const drawerWidth = 240;
 
@@ -70,7 +70,6 @@ const AppBar = styled(MuiAppBar, {
     }),
   }),
 }));
-
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -89,6 +88,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 function SideBar() {
+  const navigate= useNavigate()
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const {id} = useParams();
@@ -99,7 +99,10 @@ function SideBar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+const handleClick = () =>{
+    navigate('/')
+    localStorage.clear('token')
+}
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -134,9 +137,10 @@ function SideBar() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["DailyNote", "EventNote", "LogOut"].map((text, index) => (
+          {["DailyNote", "EventNote"].map((text, index) => (
 
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+            <ListItem
+             key={index} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -151,13 +155,32 @@ function SideBar() {
                     justifyContent: "center",
                   }}
                 >
-                  {text === "EventNote" ? <EventNoteIcon /> : text === "DailyNote" ? <NoteAddIcon/>
-                  : text === "LogOut" ? <LogoutIcon /> : null}
+                  {text === "EventNote" ? <EventNoteIcon /> : text === "DailyNote" ? <NoteAddIcon/> : null}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
+          <ListItem disablePadding sx={{ display: "block" }} onClick={handleClick}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                <LogoutIcon />
+                </ListItemIcon>
+                <ListItemText primary="LogOut" sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useEffect,useState } from 'react';
-import { Button } from '@mui/material';
 import FormDialog from '../PopUpForm/PopUpForm';
 import CongratCard from '../NoteCard/NoteCard';
 export default function DailyNote(props) {

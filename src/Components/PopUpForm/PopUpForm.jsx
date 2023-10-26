@@ -8,7 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import image from "../../Images/Note3.png";
 import axios from 'axios';
 import { useState } from 'react';
-
+import { FidgetSpinner } from 'react-loader-spinner';
+import Swal from 'sweetalert2';
 export default function FormDialog(props) {
   const [open, setOpen] = useState(false);
   const [noteName,setNoteName] = useState('')
@@ -20,7 +21,10 @@ export default function FormDialog(props) {
   const handleClose = () => {
     setOpen(false);
   };
+  const [loading,setLoading] = useState(false);
+
   const handleAddNote = (e) => {
+    setLoading(true)
     e.preventDefault();
     console.log(noteName);
     console.log(noteContent)
@@ -30,6 +34,16 @@ export default function FormDialog(props) {
       })
       .then(function (response) {
         console.log(response);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your Note has been saved',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        setOpen(false);
+        setLoading(false)
+        window.location.reload();
       })
       .catch(function (error) {
         console.log(error);
@@ -39,6 +53,16 @@ export default function FormDialog(props) {
 
   return (
     <div>
+      {loading ? <FidgetSpinner
+    visible={true}
+    height="80"
+    width="80"
+    ariaLabel="dna-loading"
+    wrapperStyle={{}}
+    wrapperClass="dna-wrapper"
+    ballColors={['#ff0000', '#00ff00', '#0000ff']}
+    backgroundColor="#F4442E"
+  /> : <div>
       <Button variant="outlined" style={{color:"purple",borderColor:"purple"}} onClick={handleClickOpen}>
         Add Daily Note
       </Button>
@@ -84,6 +108,7 @@ export default function FormDialog(props) {
           </form>
         </DialogContent>
       </Dialog>
+      </div>  }
     </div>
   );
 }
