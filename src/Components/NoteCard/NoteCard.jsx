@@ -30,7 +30,7 @@ export default function CongratCard(props) {
 
           useEffect(() => {
             const fetchData = async () => {
-              const response = await fetch(`http://localhost:4000/specificuser/${props.ID}/notes`);
+              const response = await fetch(`https://notes-apis-server.onrender.com/specificuser/${props.ID}/notes`);
               const newData = await response.json();
               setData(newData);
               setLoading(false)
@@ -116,7 +116,7 @@ export default function CongratCard(props) {
             if (result.isConfirmed) {
               setAlert(true)
                 axios
-                .delete(`http://localhost:4000/notes/delete/${note.id}`)
+                .delete(`https://notes-apis-server.onrender.com/notes/delete/${note.id}`)
                 .then((res) => {
                   console.log(res);
                   console.log(res.data);

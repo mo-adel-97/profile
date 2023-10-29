@@ -28,7 +28,7 @@ export default function FormDialog(props) {
     e.preventDefault();
     console.log(noteName);
     console.log(noteContent)
-    axios.post(`http://localhost:4000/user/${props.ID}/notes`, {
+    axios.post(`https://notes-apis-server.onrender.com/user/${props.ID}/notes`, {
         noteName: noteName,
         noteContent: noteContent
       })

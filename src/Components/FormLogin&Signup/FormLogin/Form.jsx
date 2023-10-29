@@ -20,16 +20,16 @@ const [loading,setLoading] = useState(false)
   const onSubmit = (data) => {
     setLoading(true)
     console.log(data)
-    axios.post('http://localhost:4000/correcter', { data })
+    axios.post('https://notes-apis-server.onrender.com/correcter', { data })
     .then(function (response) {
       console.log(response);
+      setLoading(false)
       if(response.data.correctUser === "this is correct user"){
         console.log(response.data.correctUser)
         const id = response.data.user.IfUserExist.id;
         const TOKEN = response.data.token.token
         localStorage.setItem("token", TOKEN)
         navigate(`/users/${id}`);
-        setLoading(false)
       }else{
         localStorage.clear("token")
         Swal.fire({

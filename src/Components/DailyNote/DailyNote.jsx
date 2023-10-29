@@ -8,7 +8,7 @@ const id = props.id
 
       useEffect(() => {
         const fetchData = async () => {
-          const response = await fetch(`http://localhost:4000/Specificuser/${props.id}`);
+          const response = await fetch(`https://notes-apis-server.onrender.com/Specificuser/${props.id}`);
           const newData = await response.json();
           setData(newData);
         };

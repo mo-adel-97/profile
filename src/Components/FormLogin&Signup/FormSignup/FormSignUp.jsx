@@ -19,7 +19,7 @@ const [loading,setLoading] = useState(false);
   const onSubmit = (data) => {
     setLoading(true)
     console.log(data)
-    axios.post('http://localhost:4000/users', { data })
+    axios.post('https://notes-apis-server.onrender.com/users', { data })
     .then(function (response) {
       console.log(response);
     setLoading(false)
